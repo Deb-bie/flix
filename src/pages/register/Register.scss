@@ -18,6 +18,7 @@
   
   .top {
     .wrapper {
+      width: 90%;
       padding: 20px 50px;
       display: flex;
       align-items: center;
@@ -40,6 +41,7 @@
         display: flex;
         justify-content: center;
         border-radius: 30px;
+        margin-right: 100px;
 
         @media screen and (max-width: 500px) {
           width: auto;
@@ -66,7 +68,7 @@
 
       div:hover {
         cursor: pointer;
-        transform: scale(0.8);
+        // transform: scale(0.8);
       }
     }
   }
