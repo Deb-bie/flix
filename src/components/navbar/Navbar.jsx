@@ -1,5 +1,6 @@
-
 import { useContext, useState } from "react";
+import { signOut } from 'firebase/auth';
+import { auth,db} from '../../firebase/Firebase';
 import "./Navbar.scss";
 
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -7,15 +8,26 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from "../../assets/logo/logo.jpg"
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+
+
+  const LogOut = async(e) => {
+    await signOut(auth);
+    navigate('/login')
+  }
+
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
   };
+
+
+
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
@@ -24,10 +36,10 @@ const Navbar = () => {
           <Link to="/" className="link">
             <span>Homepage</span>
           </Link>
-          <Link to="/series" className="link">
+          <Link to="#" className="link">
             <span className="navbarmainLinks">Series</span>
           </Link>
-          <Link to="/movies" className="link">
+          <Link to="#" className="link">
             <span className="navbarmainLinks">Movies</span>
           </Link>
           <span>New and Popular</span>
@@ -45,7 +57,7 @@ const Navbar = () => {
             <ArrowDownwardIcon className="icon" />
             <div className="options">
               <span>Settings</span>
-              <span>Logout</span>
+              <span onClick={() => LogOut()}>Logout</span>
             </div>
           </div>
         </div>
