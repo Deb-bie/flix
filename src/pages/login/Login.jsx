@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import { signInWithEmailAndPassword} from 'firebase/auth'; 
+import { auth, db} from '../../firebase/Firebase';
+import { doc, updateDoc } from "firebase/firestore"; 
 
 
 
@@ -14,14 +16,33 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { dispatch } = useContext(AuthContext);
+  // const { dispatch } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    login({ email, password }, dispatch);
+    // login({ email, password }, dispatch);
+
+
+    try {
+      const signin = await signInWithEmailAndPassword(auth, email, password);
+
+      await updateDoc(doc(db, 'users', signin.user.uid), {
+          isOnline: true,
+      });
+
+      setEmail("");
+      setPassword("")
+      navigate('/home')
+      
+  } catch (error) {
+      console.log(error)
+  }    
+
+
+
+
 
     navigate("/home")
   };
