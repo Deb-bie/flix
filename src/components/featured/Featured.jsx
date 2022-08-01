@@ -3,6 +3,8 @@ import {RandomMovies} from "../../data/Data.js"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoIcon from '@mui/icons-material/Info';
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+
 import "./Featured.scss";
 
 
@@ -15,8 +17,18 @@ export default function Featured({ type, setGenre }) {
 
   const data = RandomMovies;
 
+  const navigate = useNavigate();
+
+  const Watch = () => {
+    navigate("/watch")
+  }
+
+
+
+
+
   return (
-    <div className="featured">
+    <div className="featureds">
 
       {type && (
         <div className="category">
@@ -78,7 +90,9 @@ export default function Featured({ type, setGenre }) {
         <div className="buttons">
           <button className="play">
             <PlayArrowIcon />
-            <span>Play</span>
+            <span>
+              <Link to="watch" style={{textDecoration: "none"}} >Play</Link>
+            </span>
           </button>
           <button className="more">
             <InfoIcon />
